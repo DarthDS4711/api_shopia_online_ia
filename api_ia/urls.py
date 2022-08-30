@@ -19,5 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('core.predictions.urls')),
-    path('sale/', include('core.predict_sales.urls'))
+    path('sale/', include('core.predict_sales.urls')),
+    path('products/', include('core.predicted_discount.urls'))
 ]
