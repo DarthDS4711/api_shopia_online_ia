@@ -11,13 +11,13 @@ class MultilayerPerceptron:
         self.__us = 1.0 # umbral neurona de salida (equivalente a w0)
         self.__uoc = None# umbrales de las capa oculta 1 (equivalentes a w0)
         self.__uoc2 = None # numbrales en la segunda capa oculta (equivalentes a w0)
-        self.__precision = 0.00001
+        self.__precision = 0.000000000001
         self.__epocas = None
-        self.__fac_ap = -0.1
+        self.__fac_ap = -0.15    
         self.__n_inputs = 2
-        self.__n_hidden1 = 10
+        self.__n_hidden1 = 100
         self.__n_exit = 1
-        self.__n_hidden2 = 5
+        self.__n_hidden2 = 20
         self.__n_layers = 2
         # Variables de aprendizaje
         self.__di = 0 # Salida deseada en iteracion actual
@@ -33,7 +33,7 @@ class MultilayerPerceptron:
         self.__a1 = None # Funcion de activacion de neuronas ocultas (equivalente a a1)
         self.__a2 = None # Funcion de activacion de neuronas ocultas (equivalente a a1)
         self.__a3 = 0.0 # Funcion de activacion en neurona de salida
-        self.__epochs = 4000
+        self.__epochs = 5000
         self.__n_epochs_train = 0
         # Variables de retropropagacion
         self.__real_error = 0

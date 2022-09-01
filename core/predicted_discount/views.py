@@ -37,9 +37,9 @@ class PredictedDiscountProductsApi(APIView):
             print(data['data_predict'])
             response = {}
             multilayer_percetron = MultilayerPerceptron()
-            multilayer_percetron.set_data_for_train(data['data_class1_X1'], data['data_class1_X2'],
-            data['data_class2_X1'], data['data_class2_X2'], data['data_class3_X1'], data['data_class1_X2'])
-            multilayer_percetron.set_n_hidden_neurons_hidden_layers(10, 5)
+            multilayer_percetron.set_data_for_train(data['data_class1_X2'], data['data_class1_X1'],
+            data['data_class2_X2'], data['data_class2_X1'], data['data_class3_X2'], data['data_class3_X1'])
+            multilayer_percetron.set_n_hidden_neurons_hidden_layers(6, 0)
             multilayer_percetron.set_random_weigths()
             multilayer_percetron.train_net()
             data_predict = np.array(data['data_predict'])
