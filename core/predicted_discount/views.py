@@ -20,26 +20,20 @@ class PredictedDiscountProductsApi(APIView):
             return Response({'error' : 'data_class2_X1 can not be empty or null'}, status=status.HTTP_400_BAD_REQUEST)
         if ('data_class2_X2' in data) == False:
             return Response({'error' : 'data_class2_X2 can not be empty or null'}, status=status.HTTP_400_BAD_REQUEST)
-        if ('data_class3_X1' in data) == False:
-            return Response({'error' : 'data_class3_X1 can not be empty or null'}, status=status.HTTP_400_BAD_REQUEST)
-        if ('data_class3_X2' in data) == False:
-            return Response({'error' : 'data_class3_X2 can not be empty or null'}, status=status.HTTP_400_BAD_REQUEST)
         if ('data_predict' in data) == False:
             return Response({'error' : 'data_predict can not be empty or null'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             print("-------------------------------INCOMING DATA------------------------------")
             print(data['data_class1_X1'])
             print(data['data_class2_X1'])
-            print(data['data_class3_X1'])
             print(data['data_class1_X2'])
             print(data['data_class2_X2'])
-            print(data['data_class3_X2'])
             print(data['data_predict'])
             response = {}
             multilayer_percetron = MultilayerPerceptron()
             multilayer_percetron.set_data_for_train(data['data_class1_X2'], data['data_class1_X1'],
-            data['data_class2_X2'], data['data_class2_X1'], data['data_class3_X2'], data['data_class3_X1'])
-            multilayer_percetron.set_n_hidden_neurons_hidden_layers(6, 0)
+            data['data_class2_X2'], data['data_class2_X1'])
+            multilayer_percetron.set_n_hidden_neurons_hidden_layers(6, 3)
             multilayer_percetron.set_random_weigths()
             multilayer_percetron.train_net()
             data_predict = np.array(data['data_predict'])

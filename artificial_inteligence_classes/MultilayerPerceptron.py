@@ -11,9 +11,9 @@ class MultilayerPerceptron:
         self.__us = 1.0 # umbral neurona de salida (equivalente a w0)
         self.__uoc = None# umbrales de las capa oculta 1 (equivalentes a w0)
         self.__uoc2 = None # numbrales en la segunda capa oculta (equivalentes a w0)
-        self.__precision = 0.000000000001
+        self.__precision = 0.00001
         self.__epocas = None
-        self.__fac_ap = -0.15    
+        self.__fac_ap = -0.15   
         self.__n_inputs = 2
         self.__n_hidden1 = 100
         self.__n_exit = 1
@@ -33,7 +33,7 @@ class MultilayerPerceptron:
         self.__a1 = None # Funcion de activacion de neuronas ocultas (equivalente a a1)
         self.__a2 = None # Funcion de activacion de neuronas ocultas (equivalente a a1)
         self.__a3 = 0.0 # Funcion de activacion en neurona de salida
-        self.__epochs = 5000
+        self.__epochs = 500
         self.__n_epochs_train = 0
         # Variables de retropropagacion
         self.__real_error = 0
@@ -84,28 +84,19 @@ class MultilayerPerceptron:
     def return_w1(self):
         return self.__w1, self.__uoc, self.__n_hidden1
 
-    def set_data_for_train(self, first_class_X1, first_class_X2, second_class_X1, second_class_X2, third_class_X1, third_class_X2):
-        # datos de entrenamiento
-        self.__d = np.array([0])
-        for index in range(len(first_class_X1)):# datos clase con un valor deseado de 0
+    def set_data_for_train(self, first_class_X1, first_class_X2, second_class_X1, second_class_X2):
+        for index in range(len(first_class_X1)):# datos clase con un valor deseado de 1
             x1 = first_class_X1[index]
             x2 = first_class_X2[index]
             row = np.array([x1,x2])
             self.__xi = np.vstack([self.__xi, row])
-            self.__d = np.append(self.__d, 0)
-        for index in range(len(second_class_X1)):# datos clase con un valor deseado de 1
+            self.__d = np.append(self.__d, 1)
+        for index in range(len(second_class_X1)):# datos clase con un valor deseado de -1
             x1 = second_class_X1[index]
             x2 = second_class_X2[index]
             row = np.array([x1,x2])
             self.__xi = np.vstack([self.__xi, row])
-            self.__d = np.append(self.__d, 1)
-        for index in range(len(third_class_X1)):# datos clase con un valor deseado de -1
-            x1 = third_class_X1[index]
-            x2 = third_class_X2[index]
-            row = np.array([x1,x2])
-            self.__xi = np.vstack([self.__xi, row])
             self.__d = np.append(self.__d, -1)
-        
         print(self.__xi)
 
         self.__xi = np.delete(self.__xi, 0, axis=0)
@@ -128,15 +119,14 @@ class MultilayerPerceptron:
                 self.__backPropagation()
                 self.__forward()# detección del nuevo error actual
                 self.__Error_actual[index] = ((self.__di - self.__a3)**2)# error actual
-                if n_epochs % 1000 == 0:
+                if n_epochs % 50 == 0:
                     print(f"Deseada: {self.__di}  obtenida: {self.__a3}  Error: {self.__di - self.__a3}")
             self.__error_mlp()# calculo del error de la red
             n_epochs += 1
-            if n_epochs % 1000 == 0:
+            if n_epochs % 100 == 0:
                 print(f"Error perpeptron: {self.__net_error}")
             if np.abs(self.__net_error) < self.__precision:
-                if n_epochs > 1000:
-                    is_valid_to_continue = False
+                is_valid_to_continue = False
             if n_epochs > self.__epochs:
                 is_valid_to_continue = False
         print(f'Error alcanzado con backpropagation: {self.__net_error}')
